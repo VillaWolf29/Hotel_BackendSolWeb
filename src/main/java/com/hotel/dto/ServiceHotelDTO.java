@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ServiceHotelDTO {
 
-    private int idService;
+    private int idServiceHotel;
     private String nameService; // spa, lavandería, restaurante, etc.
     private double price;
     private String description;

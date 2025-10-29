@@ -15,7 +15,7 @@ public class ServiceHotel {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idService;
+    private int idServiceHotel;
 
     @Column(nullable = false, length = 100)
     private String nameService; // spa, lavandería, restaurante, etc.
