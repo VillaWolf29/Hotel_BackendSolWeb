@@ -8,12 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class EmployeeDTO {
-    private int idCustomer;
+    private int idEmpleado;
     private String firstName;
     private String lastName;
-    private String email;
+    private String post;
     private String phone;
-    private String idCard;
-    private String address;
+    private String email;
 
 }
