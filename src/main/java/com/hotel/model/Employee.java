@@ -31,4 +31,5 @@ public class Employee {
 
     @Column(length = 100, unique = true)
     private String email;
+
 }

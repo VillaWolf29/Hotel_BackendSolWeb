@@ -38,4 +38,8 @@ public class Booking {
     @JoinColumn(name = "id_room", nullable = false)
     private Room room;
 
+    @ManyToOne
+    @JoinColumn(name = "id_employee", nullable = false)
+    private Employee employee;
+
 }
