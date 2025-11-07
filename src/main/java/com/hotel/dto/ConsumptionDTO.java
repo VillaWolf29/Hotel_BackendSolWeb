@@ -16,5 +16,4 @@ public class ConsumptionDTO {
     private double subtotal;
     private BookingDTO  booking;
     private ServiceHotelDTO  serviceHotel;
-
 }

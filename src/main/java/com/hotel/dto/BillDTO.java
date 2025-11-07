@@ -10,10 +10,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 public class BillDTO {
+    private int idBill;
     private LocalDate dateEmission;
     private double total;
     private String paymentMethod; // tarjeta, efectivo, transferencia
     private String state; // pagada, pendiente, anulada
     private BookingDTO booking;
-
 }
