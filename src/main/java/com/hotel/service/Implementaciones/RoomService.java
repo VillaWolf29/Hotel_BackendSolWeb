@@ -1,10 +1,13 @@
 package com.hotel.service.Implementaciones;
 
+import com.hotel.model.Customer;
 import com.hotel.model.Room;
 import com.hotel.service.IRoomService;
 import com.hotel.repository.IGenericRepository;
 import com.hotel.repository.IRoomRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,5 +18,10 @@ public class RoomService  extends GenericService<Room,Integer> implements IRoomS
     @Override
     protected IGenericRepository<Room, Integer> getRepo() {
         return repo;
+    }
+
+    @Override
+    public Page<Room> listPage(Pageable pageable) {
+        return repo.findAll(pageable);
     }
 }
