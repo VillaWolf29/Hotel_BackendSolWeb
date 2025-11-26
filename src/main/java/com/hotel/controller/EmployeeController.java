@@ -7,6 +7,9 @@ import com.hotel.service.IEmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,6 +24,7 @@ import java.util.List;
 public class EmployeeController {
 
     private final IEmployeeService service;
+    @Qualifier("defaultMapper")
     private final ModelMapper modelMapper;
 
     @GetMapping
@@ -53,6 +57,12 @@ public class EmployeeController {
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) throws Exception{
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/pageable")
+    public ResponseEntity<Page<Employee>> listPage(Pageable pageable){
+        Page<Employee> page = service.listPage(pageable);
+        return ResponseEntity.ok(page);
     }
 
     private EmployeeDTO convertToDto(Employee obj){

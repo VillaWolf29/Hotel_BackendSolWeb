@@ -1,11 +1,15 @@
 package com.hotel.controller;
 
 import com.hotel.dto.PayDTO;
+import com.hotel.model.Customer;
 import com.hotel.model.Pay;
 import com.hotel.service.IPayService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PayController {
     private final IPayService service;
+    @Qualifier("defaultMapper")
     private final ModelMapper modelMapper;
 
     @GetMapping
@@ -51,6 +56,12 @@ public class PayController {
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) throws Exception{
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/pageable")
+    public ResponseEntity<Page<Pay>> listPage(Pageable pageable){
+        Page<Pay> page = service.listPage(pageable);
+        return ResponseEntity.ok(page);
     }
 
     private PayDTO convertToDto(Pay obj){

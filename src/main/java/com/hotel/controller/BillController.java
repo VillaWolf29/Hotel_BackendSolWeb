@@ -4,10 +4,14 @@ package com.hotel.controller;
 
 import com.hotel.model.Bill;
 import com.hotel.dto.BillDTO;
+import com.hotel.model.Customer;
 import com.hotel.service.IBillService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,6 +25,7 @@ import java.util.List;
 public class BillController {
 
     private final IBillService service;
+    @Qualifier("defaultMapper")
     private final ModelMapper modelMapper;
 
     @GetMapping
@@ -53,6 +58,12 @@ public class BillController {
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) throws Exception{
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/pageable")
+    public ResponseEntity<Page<Bill>> listPage(Pageable pageable){
+        Page<Bill> page = service.listPage(pageable);
+        return ResponseEntity.ok(page);
     }
 
     private BillDTO convertToDto(Bill obj){

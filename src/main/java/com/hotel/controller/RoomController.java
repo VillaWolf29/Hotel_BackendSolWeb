@@ -1,11 +1,15 @@
 package com.hotel.controller;
 
 import com.hotel.dto.RoomDTO;
+import com.hotel.model.Customer;
 import com.hotel.model.Room;
 import com.hotel.service.IRoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoomController {
     private final IRoomService service;
+    @Qualifier("defaultMapper")
     private final ModelMapper modelMapper;
 
     @GetMapping
@@ -53,6 +58,11 @@ public class RoomController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/pageable")
+    public ResponseEntity<Page<Room>> listPage(Pageable pageable){
+        Page<Room> page = service.listPage(pageable);
+        return ResponseEntity.ok(page);
+    }
     private RoomDTO convertToDto(Room obj){
         return modelMapper.map(obj, RoomDTO.class);
     }
